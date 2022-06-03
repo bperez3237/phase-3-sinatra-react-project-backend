@@ -28,6 +28,14 @@ class ApplicationController < Sinatra::Base
     activity.to_json
   end
 
+  patch "/activities/:id" do
+    activity = Activity.find(params[:id])
+    activity.update(
+      percent_complete: params[:percent_complete],
+      order: params[:order]
+    )
+  end
+
   #employees routes
   get "/employees" do
     employees = Employee.all
