@@ -1,10 +1,10 @@
 puts "🌱 Seeding spices..."
 
 # Seed your database here
-a1 = Activity.create(name: "Excavation", estimated_hours: 81, percent_complete: 0, estimated_cost: 100000)
-a2 = Activity.create(name: "Formwork", estimated_hours: 105, percent_complete: 0, estimated_cost: 57000)
-a3 = Activity.create(name: "Concrete", estimated_hours: 42, percent_complete: 0, estimated_cost: 46000)
-a4 = Activity.create(name: "Install Roof", estimated_hours: 130, percent_complete: 0, estimated_cost: 180000)
+a1 = Activity.create(name: "Excavation", estimated_hours: 81, percent_complete: 0, estimated_cost: 100000, order: 1)
+a2 = Activity.create(name: "Formwork", estimated_hours: 105, percent_complete: 0, estimated_cost: 57000, order: 2)
+a3 = Activity.create(name: "Concrete", estimated_hours: 42, percent_complete: 0, estimated_cost: 46000, order: 3)
+a4 = Activity.create(name: "Install Roof", estimated_hours: 130, percent_complete: 0, estimated_cost: 180000, order:4)
 
 e1 = Employee.create(name: "Ramon Rivera", wage_rate: 52, labor_union: "Laborer")
 e2 = Employee.create(name: "Manuel Silva", wage_rate: 60, labor_union: "Laborer")
