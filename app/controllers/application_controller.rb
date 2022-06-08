@@ -22,9 +22,14 @@ class ApplicationController < Sinatra::Base
     costs.to_json
   end
 
-  get "/activities/project_cost" do
-    cost = Activity.project_cost
+  get "/project_cost" do
+    cost = [Activity.project_cost]
     cost.to_json
+  end
+
+  get "/project_hours" do 
+    hours = [Activity.project_hours]
+    hours.to_json
   end
 
   post '/activities' do
@@ -49,6 +54,14 @@ class ApplicationController < Sinatra::Base
   delete '/activities/:id' do
     activity = Activity.find(params[:id])
     activity.costs.each {|cost| cost.destroy}
+    
+
+    final = Activity.maximum(:order)
+    start = activity.order
+    
+    Activity.all.sort_by(:order)[start..final].each do |act|
+      act.update(order: activity.order-1)
+    end
     activity.destroy
     activity.to_json
   end
