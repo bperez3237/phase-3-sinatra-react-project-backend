@@ -12,17 +12,20 @@ class ApplicationController < Sinatra::Base
     activities.to_json
   end
 
-  get "/activities/order" do
-    activities = Activity.sort_order
-    activities.to_json
-  end
-
-
   get "/activities/:id" do
     activities = Activity.find(params[:id])
     activities.to_json
   end
 
+  get "/activities/:id/costs" do
+    costs = Activity.find(params[:id]).costs
+    costs.to_json
+  end
+
+  get "/activities/project_cost" do
+    cost = Activity.project_cost
+    cost.to_json
+  end
 
   post '/activities' do
     activity = Activity.create(
@@ -45,6 +48,7 @@ class ApplicationController < Sinatra::Base
 
   delete '/activities/:id' do
     activity = Activity.find(params[:id])
+    activity.costs.each {|cost| cost.destroy}
     activity.destroy
     activity.to_json
   end
@@ -71,6 +75,7 @@ class ApplicationController < Sinatra::Base
     costs.to_json
   end
 
+
   post '/costs' do
     cost = Cost.create(
       name: params[:name],
@@ -95,4 +100,5 @@ class ApplicationController < Sinatra::Base
     cost.destroy
     cost.to_json
   end
+
 end
