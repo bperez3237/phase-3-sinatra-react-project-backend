@@ -66,7 +66,9 @@ class ApplicationController < Sinatra::Base
       act.update(order: act.order-1)
     end
     activity.destroy
-    activity.to_json
+
+    res = {'activities': Activity.all, 'costs': Cost.all}
+    res.to_json
   end
 
   #employees routes
