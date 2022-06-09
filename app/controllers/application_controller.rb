@@ -45,22 +45,25 @@ class ApplicationController < Sinatra::Base
 
   patch "/activities/:id" do
     activity = Activity.find(params[:id])
-    activity.update(
-      order: params[:order]
-    )
-    activity.to_json
+    swap_activity = Activity.find_by(order: params[:order])
+    difference = params[:order] - activity.order
+
+    unless params[:order] < 1 || params[:order] > Activity.all.length
+      activity.update(order: params[:order])
+      swap_activity.update(order: swap_activity.order - difference)
+    end
+    activities = Activity.all
+    activities.to_json
   end
 
   delete '/activities/:id' do
     activity = Activity.find(params[:id])
     activity.costs.each {|cost| cost.destroy}
-    
 
-    final = Activity.maximum(:order)
-    start = activity.order
-    
-    Activity.all.sort_by(:order)[start..final].each do |act|
-      act.update(order: activity.order-1)
+    start = activity.order - 1
+
+    Activity.all.sort_order[start..].each do |act|
+      act.update(order: act.order-1)
     end
     activity.destroy
     activity.to_json
