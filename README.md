@@ -12,3 +12,8 @@ To start the server run:
 ```bash
 rake server
 ```
+
+Data is provided in db/seeds.rb as an example.
+
+
+
