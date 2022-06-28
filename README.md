@@ -6,5 +6,4 @@ This app helps manage the backend of a react application for tracking activities
 ## Getting Started
 
 Clone the frontend for the React page: 
-[sintra-react-project-frontend]
-(https://github.com/bperez3237/phase-3-sinatra-react-project-frontend)
+[sintra-react-project-frontend](https://github.com/bperez3237/phase-3-sinatra-react-project-frontend)
