@@ -58,10 +58,9 @@ class ApplicationController < Sinatra::Base
 
   delete '/activities/:id' do
     activity = Activity.find(params[:id])
-    activity.costs.each {|cost| cost.destroy}
+    activity.costs.destroy_all
 
     start = activity.order - 1
-
     Activity.all.sort_order[start..].each do |act|
       act.update(order: act.order-1)
     end
@@ -92,7 +91,6 @@ class ApplicationController < Sinatra::Base
     costs = Cost.find(params[:id])
     costs.to_json
   end
-
 
   post '/costs' do
     cost = Cost.create(
